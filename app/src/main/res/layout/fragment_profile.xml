@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.ProfileFragment">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.demotxt.droidsrce.profileui.MainActivity"
+        android:background="@color/gray"
+        android:orientation="vertical"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp">
+            <LinearLayout
+                android:background="@drawable/gradientbackground"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_marginTop="45dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:src="@drawable/profile"/>
+                <TextView
+                    android:id="@+id/nameUser"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Wiliam Snoe"
+                    android:textColor="#fff"
+                    android:textStyle="bold"
+                    android:textSize="21sp"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_marginTop="45dp">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:paddingLeft="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/email_icon"/>
+                <TextView
+                    android:id="@+id/emailUser"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:text="Wiliam@gmail.com"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="25dp"
+                android:orientation="horizontal"
+                android:paddingLeft="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/phone_icon"/>
+                <TextView
+                    android:id="@+id/phoneOfUser"
+                    android:textStyle="bold"
+
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:text="+266 225 225"/>
+            </LinearLayout>
+        </LinearLayout>
+        <Button
+            android:id="@+id/btnLogout"
+            android:textColor="#fff"
+            android:padding="10dp"
+            android:background="@drawable/orange_button"
+            android:layout_marginTop="35dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Log Out"/>
+
+    </LinearLayout>
+
+
+</FrameLayout>
