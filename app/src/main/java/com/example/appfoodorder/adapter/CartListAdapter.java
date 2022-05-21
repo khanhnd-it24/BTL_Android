@@ -62,10 +62,10 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHo
             @Override
             public void onClick(View view) {
                 FirebaseAuth mAuth = FirebaseAuth.getInstance();
-                FirebaseUser user = mAuth.getCurrentUser();
+//                FirebaseUser user = mAuth.getCurrentUser();
 
                 FirebaseDatabase.getInstance().getReference("carts")
-                        .orderByChild("userUid").equalTo(user.getUid())
+                        .orderByChild("userUid").equalTo("BgJoJUQnMBZeu3MfXGYyZH7K34F3")
                         .addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -114,7 +114,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHo
                 FirebaseUser user = mAuth.getCurrentUser();
 
                 FirebaseDatabase.getInstance().getReference("carts")
-                        .orderByChild("userUid").equalTo(user.getUid())
+                        .orderByChild("userUid").equalTo("BgJoJUQnMBZeu3MfXGYyZH7K34F3")
                         .addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {

@@ -30,8 +30,11 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Arrays;
 import java.util.List;
@@ -102,12 +105,15 @@ public class HomeFragment extends Fragment {
 
         nameOfUser = view.findViewById(R.id.textView4);
         avatarUser = view.findViewById(R.id.imageView3);
-        GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(getContext());
-        if(signInAccount != null){
-            List<String> names = Arrays.asList(signInAccount.getDisplayName().split(" "));
-            nameOfUser.setText("Hi " + names.get(names.size() - 1));
-//            avatarUser.setImageURI(signInAccount.getPhotoUrl());
-        }
+//        GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(getContext());
+//        if(signInAccount != null){
+//            List<String> names = Arrays.asList(signInAccount.getDisplayName().split(" "));
+//            nameOfUser.setText("Hi " + names.get(names.size() - 1));
+////            avatarUser.setImageURI(signInAccount.getPhotoUrl());
+//        }
+
+        nameOfUser.setText("Hi Khanh");
+
         recycleViewCategory(view);
         recycleViewPopular(view);
         recycleViewFood(view);
@@ -177,6 +183,14 @@ public class HomeFragment extends Fragment {
                 Glide.with(holder.itemView.getContext())
                         .load(drawableResourceId)
                         .into(holder.categoryPic);
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        firebaseFilterFood(view, model);
+                    }
+                });
+
             }
 
             @NonNull
@@ -345,5 +359,71 @@ public class HomeFragment extends Fragment {
 
         adapter3.startListening();
         recyclerViewFoodList.setAdapter(adapter3);
+    }
+
+    private void firebaseFilterFood(View view, Category category) {
+
+        FirebaseDatabase.getInstance().getReference("categories")
+                .orderByChild("title").equalTo(category.getTitle())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for(DataSnapshot dsx: snapshot.getChildren()){
+                            Query query = FirebaseDatabase.getInstance().getReference("foods")
+                                    .orderByChild("catUid")
+                                    .equalTo(dsx.getKey());
+
+                            FirebaseRecyclerOptions<Food> options = new FirebaseRecyclerOptions.Builder<Food>()
+                                    .setQuery(query, Food.class)
+                                    .build();
+
+                            adapter3 = new FirebaseRecyclerAdapter<Food, PopularViewHolder>(options) {
+                                @Override
+                                protected void onBindViewHolder(@NonNull PopularViewHolder holder, int position, @NonNull Food model) {
+                                    holder.title.setText(model.getTitle());
+                                    holder.fee.setText(String.valueOf(model.getPrice()));
+
+                                    int drawableResourceId = holder.itemView.getContext()
+                                            .getResources()
+                                            .getIdentifier(
+                                                    model.getPic(),
+                                                    "drawable",
+                                                    holder.itemView.getContext().getPackageName()
+                                            );
+
+                                    Glide.with(holder.itemView.getContext())
+                                            .load(drawableResourceId)
+                                            .into(holder.pic);
+
+                                    holder.addBtn.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            Intent intent = new Intent(holder.itemView.getContext(), ShowDetailActivity.class);
+                                            intent.putExtra("object", model);
+                                            holder.itemView.getContext().startActivity(intent);
+                                        }
+                                    });
+                                }
+
+                                @NonNull
+                                @Override
+                                public PopularViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                                    View inflate = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_popular, parent, false);
+                                    return new PopularViewHolder(inflate);
+                                }
+                            };
+
+                            adapter3.startListening();
+                            recyclerViewFoodList.setAdapter(adapter3);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
     }
 }

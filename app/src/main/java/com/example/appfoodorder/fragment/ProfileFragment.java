@@ -85,13 +85,17 @@ public class ProfileFragment extends Fragment {
         phoneOfUser = view.findViewById(R.id.phoneOfUser);
         btnLogout = view.findViewById(R.id.btnLogout);
 
-        FirebaseUser user = mAuth.getCurrentUser();
-        if(user != null){
-            nameOfUser.setText(user.getDisplayName());
-            emailOfUser.setText(user.getEmail());
-            phoneOfUser.setText("+84 36 27 65 148");
-//            avatarUser.setImageURI(signInAccount.getPhotoUrl());
-        }
+//        FirebaseUser user = mAuth.getCurrentUser();
+//        if(user != null){
+//            nameOfUser.setText(user.getDisplayName());
+//            emailOfUser.setText(user.getEmail());
+//            phoneOfUser.setText("+84 36 27 65 148");
+////            avatarUser.setImageURI(signInAccount.getPhotoUrl());
+//        }
+
+        nameOfUser.setText("Nguyễn Duy Khanh");
+        emailOfUser.setText("khanhnd.it24@gmail.com");
+        phoneOfUser.setText("+84 36 27 65 148");
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override

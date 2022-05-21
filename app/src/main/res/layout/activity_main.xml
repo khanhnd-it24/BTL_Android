@@ -33,7 +33,7 @@
 
     </FrameLayout>
 
-    <com.example.foodorderapp.navigation.CustomBottomNavigationView
+    <com.example.appfoodorder.navigation.CustomBottomNavigationView
         android:id="@+id/customBottomBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
